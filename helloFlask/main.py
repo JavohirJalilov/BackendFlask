@@ -6,4 +6,10 @@ app = Flask(__name__)
 def hello():
     return 'Hi'
 
-app.run()
+@app.route('/home')
+def home():
+    f = open('../HTML/index.html')
+    s = f.read()
+    return s
+
+app.run(debug=True)
