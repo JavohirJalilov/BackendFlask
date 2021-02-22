@@ -4,7 +4,8 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello():
-    return 'Hi'
+    s = 'Hello <a href="http://127.0.0.1:5000/home">flask</a>'
+    return s
 
 @app.route('/home')
 def home():
