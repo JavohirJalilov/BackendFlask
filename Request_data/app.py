@@ -3,14 +3,32 @@ from flask import Flask,request
 app = Flask(__name__)
 
 
-@app.route('/api')
-@app.route('/api/sum')
+@app.route('/api',methods=['GET','POST'])
 def api():
-    r = request.args
-    a=int(r['a'])
-    b=int(r['b'])
-    return {'sum':a+b}
+    if request.method == 'GET':
+        r = request.args
+        a = int(r.get('a',0))
+        b = int(r.get('b',0))
+        return {'sum':a+b}
+    
+    if request.method == 'POST':
+        r = request.json
+        a = r.get('a',0)
+        b = r.get('b',0)
+        print(r)
+        return {'sum':a+b}
+        
+@app.route('/form',methods=['GET','POST'])
+def get_form():
+    if request.method == 'GET':
+        a = request.form.get('a',0)
+        b = request.form.get('b',0)
+        return {'sum':int(a)+int(b)}
 
+    if request.method == 'POST':
+        a = request.form.get('a',0)
+        b = request.form.get('b',0)
+        return {'sum':int(a)+int(b)}
 
 @app.route('/index')
 @app.route('/')
